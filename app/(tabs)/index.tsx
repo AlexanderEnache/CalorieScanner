@@ -1,14 +1,39 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+
+// import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
+import React from 'react';
+import ScanScreen from '../../screens/ScanScreen';
+import ScanScreenOther from '../../screens/ScanScreenOther';
+
+// const Stack = createNativeStackNavigator();
+
+const Drawer = createDrawerNavigator();
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
+
+    // <NavigationContainer>
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Home" component={ScanScreen} />
+        <Drawer.Screen name="Profile" component={ScanScreenOther} />
+      </Drawer.Navigator>
+    // </NavigationContainer>
+
+    /*
+
+    // <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={ScanScreen} />
+        <Stack.Screen name="Other" component={ScanScreenOther} />
+      </Stack.Navigator>
+    // </NavigationContainer>
+    */
+
+  /*  <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
         <Image
@@ -52,6 +77,7 @@ export default function HomeScreen() {
         </ThemedText>
       </ThemedView>
     </ParallaxScrollView>
+    */
   );
 }
 
