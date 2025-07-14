@@ -4,6 +4,9 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
+// import React, { useState, useEffect, useRef } from 'react';
+// import { Text, View, Button, StyleSheet } from 'react-native';
+
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 export default function RootLayout() {

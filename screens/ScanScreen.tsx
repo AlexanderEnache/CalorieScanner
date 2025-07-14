@@ -1,20 +1,61 @@
 // screens/HomeScreen.js
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import React from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { BarcodeScanningResult } from 'expo-camera';
+import React, { useEffect, useRef, useState } from 'react';
+import { Button, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+import { Camera, CameraView } from 'expo-camera';
 
 const ScanScreen = () => {
+  const [hasPermission, setHasPermission] = useState(Boolean);
+  const [scannedData, setScannedData] = useState<String | null>(null);
+  const cameraRef = useRef(null);
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === 'granted');
+    })();
+  }, []);
+
+  const handleBarCodeScanned = ({ type, data } : BarcodeScanningResult) => {
+    setScannedData(data);
+    alert(`Scanned ${type}: ${data}`);
+  };
+
+  if (hasPermission === null) return <Text>Requesting camera permission...</Text>;
+  if (hasPermission === false) return <Text>No access to camera</Text>;
+
+
   return (
     <View style={styles.container}>
+      <CameraView
+              ref={cameraRef}
+              style={{ width: 1000, height: 1000 }}
+              // onBarcodeScanned={scannedData ? undefined : handleBarCodeScanned}
+              // barCodeScannerSettings={{
+              //   barCodeTypes: ['qr', 'ean13', 'code128', 'upc_a', 'upc_e', 'pdf417'],
+              // }}
+            />
+              {scannedData && (
+                <Button title="Scan Again" onPress={() => setScannedData(null)} />
+              )}
+              {scannedData && <Text>Data: {scannedData}</Text>}
       <ScrollView contentContainerStyle={styles.scroll}>
-        {/* {['Apple', 'Banana', 'Cherry'].map((item, index) => (
-          <View key={index} style={{ padding: 10 }}>
-            <Text>{item}</Text>
-          </View>
-        ))} */}
+         <CameraView
+              ref={cameraRef}
+              style={{ width: 1000, height: 1000 }}
+              // onBarcodeScanned={scannedData ? undefined : handleBarCodeScanned}
+              // barCodeScannerSettings={{
+              //   barCodeTypes: ['qr', 'ean13', 'code128', 'upc_a', 'upc_e', 'pdf417'],
+              // }}
+            />
+              {scannedData && (
+                <Button title="Scan Again" onPress={() => setScannedData(null)} />
+              )}
+              {scannedData && <Text>Data: {scannedData}</Text>}
         <View style={scanButtonStyle.button}>
             <TouchableOpacity style={scanButtonStyle.button} onPress={() => console.log('Pressed')}>
-              
               <MaterialCommunityIcons name="barcode-scan" size={100} color="#000" />
             </TouchableOpacity>
         </View>
