@@ -17,7 +17,7 @@ export default function HomeScreen() {
   return (
 
     // <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Navigator initialRouteName="Profile">
         <Drawer.Screen name="Home" component={ScanScreen} />
         <Drawer.Screen name="Profile" component={ScanScreenOther} />
       </Drawer.Navigator>

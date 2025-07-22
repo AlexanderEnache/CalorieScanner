@@ -4,7 +4,7 @@ import { BarcodeScanningResult } from 'expo-camera';
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { Camera, CameraView } from 'expo-camera';
+import { Camera } from 'expo-camera';
 
 const ScanScreen = () => {
   const [hasPermission, setHasPermission] = useState(Boolean);
@@ -29,27 +29,11 @@ const ScanScreen = () => {
 
   return (
     <View style={styles.container}>
-      <CameraView
-              ref={cameraRef}
-              style={{ width: 1000, height: 1000 }}
-              // onBarcodeScanned={scannedData ? undefined : handleBarCodeScanned}
-              // barCodeScannerSettings={{
-              //   barCodeTypes: ['qr', 'ean13', 'code128', 'upc_a', 'upc_e', 'pdf417'],
-              // }}
-            />
               {scannedData && (
                 <Button title="Scan Again" onPress={() => setScannedData(null)} />
               )}
               {scannedData && <Text>Data: {scannedData}</Text>}
       <ScrollView contentContainerStyle={styles.scroll}>
-         <CameraView
-              ref={cameraRef}
-              style={{ width: 1000, height: 1000 }}
-              // onBarcodeScanned={scannedData ? undefined : handleBarCodeScanned}
-              // barCodeScannerSettings={{
-              //   barCodeTypes: ['qr', 'ean13', 'code128', 'upc_a', 'upc_e', 'pdf417'],
-              // }}
-            />
               {scannedData && (
                 <Button title="Scan Again" onPress={() => setScannedData(null)} />
               )}
